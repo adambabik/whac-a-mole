@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" ng-app="whacMole">
+<head>
+  <meta charset="utf-8">
+  <title>Whack-a-Mole powered by AngularJS</title>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+  <div class="container" ng-controller="GameCtrl">
+    <header class="page-header">
+      <h1>Whac-A-Mole <small>powered by AngularJS</small></h1>
+    </header>
+
+    <div class="row">
+      <div class="col-xs-8">
+        <div class="row field" ng-controller="BoardCtrl">
+          <hole ng-repeat="mole in game.moles track by $index"
+                show="{{ mole }}"
+                index="{{ $index }}"
+                on-hit="hit($index)"></hole>
+          <!--<div class="col-xs-4 hole" ng-repeat="mole in game.moles track by $index">
+            <div class="circle">
+              <div class="mole" ng-show="mole" ng-click="hit($index)"></div>
+            </div>
+          </div>-->
+        </div>
+      </div>
+
+      <div class="col-xs-4">
+        <div class="actions" ng-controller="ControlsCtrl">
+          <h3 class="pull-left">Time Left: <span ng-bind="game.timer"></span></h3>
+          <button type="button"
+                  class="btn btn-lg pull-right"
+                  ng-click="startOrStop($event)"
+                  ng-class="{ 'btn-danger': game.running, 'btn-success': !game.running }"
+                  ng-bind="game.running ? 'Stop' : 'Start'"></button>
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Results</h3>
+          </div>
+          <div class="panel-body">
+            <h4><strong>Score:</strong> <span class="pull-right" ng-bind="game.score"></span></h4>
+            <h4><strong>Level:</strong> <span class="pull-right" ng-bind="game.level"></span></h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="js/angular.js"></script>
+  <script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>
